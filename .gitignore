@@ -1,6 +1,6 @@
-//carpetas a ignorar
-./CP-M1
-./M1
-./Prep-Course
-./subcarpeta1
+#carpetas y archivos a ignorar
+/CP-M1
+/M1
+/Prep-Course
+/subcarpeta1
 2022-09-23-ppalmav-master.zip
