@@ -1,1 +1,19 @@
 // Mixins acá
+.flex{
+    display:flex;
+}
+.flex-vert{
+    .flex();
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex-hor{
+    .flex();
+    flex-direction: row;
+}
+
+.btn-mix(@bg,@color){
+    background-color: @bg;
+    color:@color;
+}

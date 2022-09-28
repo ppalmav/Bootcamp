@@ -1,0 +1,3 @@
+	* Framework: Marco de trabajo, una herramienta que enriquece la programación, haciendo que esta sea mas rapida, cumpla estandares, mas robusta
+	* Preprocesador: es un procesador o interpretador de texto que se ejecuta antes de la compilacion o interpretación de codigo real, necesario para reemplazar en algunos casos variables o constantes por sus valores reales, importar codigos externos, etc
+	* Responsive website: Un sitio web que puede funcionar y adaptar a diferentes pantallas desde donde el usuario acceda
