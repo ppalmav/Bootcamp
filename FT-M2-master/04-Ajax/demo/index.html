@@ -15,7 +15,7 @@
     var index = 1;
     $('.boton').click(function () {
       // GET AJAX
-      $.get("https://jsonplaceholder.typicode.com/photos/" + index, function (data) {
+      $.get("https://jsonplaceholder.typicode.com/photos/" + index, function (dataAca) {
         // vanilla javascript
         var img = document.createElement('img');
         img.src = dataAca.url;

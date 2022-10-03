@@ -145,3 +145,16 @@
 //     return [...arr,...arr1, ...arr2] 
 // }
 // console.log(saludo())
+var selectorTypeMatcher = function(selector) {
+    // tu código aquí
+    let arr=[];
+    arr=selector.split('');
+    console.log(arr)
+    if(arr[0]==='#') return 'id'
+    if(arr[0]==='.') return 'class'
+    if(arr.includes('.')) return 'tag.class'
+    else return 'tag'
+  
+  };
+
+  selectorTypeMatcher('#header')
