@@ -1,0 +1,17 @@
+.searchContainer{
+    background-color: lightgrey;
+    display:inline;
+    margin: 10px auto;
+    padding: 15px;
+    justify-content: center;
+    text-align: center;
+    border-radius: 2px;
+}
+.searchBtn{
+    background-color: darkgrey;
+    color: whitesmoke;
+    margin: 10px 0px 10px 10px ;
+    border: 5px whitesmoke;
+    border-radius: 2px;
+    height: 30px;
+}
