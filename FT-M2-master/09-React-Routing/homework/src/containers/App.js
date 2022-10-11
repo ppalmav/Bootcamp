@@ -7,7 +7,8 @@ import { Route } from 'react-router-dom';
 import About from '../components/About.jsx';
 import Ciudad from '../components/Ciudad';
 
-const apiKey = '017e2ef2ba480dcdd5b77b4466095c64'; //propia
+const apiKey = ''; //017e2ef2ba480dcdd5b77b4466095c64 propia
+
 
 function App() {
   const [cities, setCities] = useState([]);
