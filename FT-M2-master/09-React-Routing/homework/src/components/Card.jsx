@@ -1,14 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './Card.css';
 
 export default function Card ({min, max, name, img, onClose, id}) {
     return (
-      <div className="card">
+      <div className="card" id={id}>
         <div id="closeIcon" className="row">
             <button onClick={onClose} className="btn btn-sm btn-danger">X</button>
         </div>
         <div className="card-body">
-          <h5 className="card-title">{name}</h5>
+          <NavLink to={`/ciudad/${id}`}>
+            <h5 className="card-title">{name}</h5>
+          </NavLink>
           <div className="row">
             <div className="col-sm-4 col-md-4 col-lg-4">
               <p>Min</p>

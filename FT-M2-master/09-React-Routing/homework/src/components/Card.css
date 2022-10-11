@@ -1,6 +1,7 @@
 .card {
   margin: 20px;
   width: 18rem;
+  padding-right: 1em;
 }
 
 .card-title {
@@ -10,11 +11,16 @@
 #closeIcon {
   display: flex;
   justify-content: flex-end;
-  margin-right: 8px;
-  margin-top: 8px;
+  margin-right: 0;
+  margin-top: 0.5em;
 }
 
 .card-body {
   margin-top: 0px !important;
   padding-top: 0px !important;
+}
+
+.iconoClima{
+  background-color: skyblue;
+  border-radius: 3px;
 }
