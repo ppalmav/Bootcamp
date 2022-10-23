@@ -19,10 +19,10 @@ function counter() {
   otroContador()      // 2
   otroContador()      // 3
    */
-  let contador=1;
+  let contador=0;
   return function(){
     
-    return contador++;
+    return ++contador;
   }
 }
 

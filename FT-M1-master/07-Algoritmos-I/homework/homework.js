@@ -38,6 +38,7 @@ function bubbleSort(array) {
   // Tu código:
   let aux;
   for (let bubble = 0; bubble < array.length-1; bubble++) {
+    aux=false;
     for (let i = 0; i < array.length-1-bubble ; i++) {
       if( array[i]> array[i+1]){
         aux=array[i];
@@ -45,12 +46,16 @@ function bubbleSort(array) {
         array[i+1]=aux;
       } 
     }
+    // console.log(aux)
+    if(aux===false) break; //si no hubo swap, estan ordenandos y terminamos la ejecucion
   }
   return array;
     
   }
 
-// console.log(bubbleSort([10, -2, -7, 4]))
+//  console.log(bubbleSort([5, 1, 4, 2, 8]))
+//   console.log(bubbleSort([10, 10, 16, 12]))
+//   console.log(bubbleSort([10, -2, -7, 4]))
 function insertionSort(array) {
   // Implementar el método conocido como insertionSort para ordenar de menor a mayor
   // el array recibido como parámetro utilizando arreglos
