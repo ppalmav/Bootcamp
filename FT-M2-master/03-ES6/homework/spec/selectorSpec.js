@@ -152,5 +152,12 @@ describe("Credito Extra", function () {
         elements = $('body img');
         expect(elements.length).toEqual(7);
     });
+    it("Acepta cualquier numero de argumentos, e.g. `$('div > p > a > img')`", function () {
+      elements = $('body > div > img');
+      expect(elements.length).toEqual(7);
+
+      elements = $('div > p > a > img');
+      expect(elements.length).toEqual(0);
+  });
   });
 });

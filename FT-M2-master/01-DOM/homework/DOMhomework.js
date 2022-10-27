@@ -32,7 +32,7 @@ class ToDo {
 // Tu código acá:
 
 ToDo.prototype.completeToDo= function(){
-  this.complete=!this.complete;
+  this.complete= true //!this.complete;
 }
 
 // Agregar dos parámetros a la función 'buildToDo':
@@ -59,14 +59,31 @@ let toDoShell=document.createElement("div"); //creo un div y lo asigno a todoshe
 toDoShell.className='toDoShell'; //asigno clase
 let toDoText=document.createElement("span"); // crear span y asignarlo a odotext
 toDoText.innerHTML=todo.description; //seteamos texto en el span con lo que hay en todo.description
-toDoText.id=index; //seteamos el id del span clo que tenga index
-if(todo.complete) toDoText.className='completeText'; //si complete esta true asignamos classname completeText
+//toDoText.id=index; //seteamos el id del span clo que tenga index
+/*    Investigá sobre el tipo 'checkbox' del elemento input y realizar lo siguiente en la función 'buildToDo':
+        a) Crer un checkbox en la función 'buildToDo'
+        b) Asignarle como id a dicho checkbox el valor del index y quitar el id del index de toDoText
+        c) Agregarle al checkbox el 'click' event listener de completeToDo y quitárle el event listener a toDoText
+        d) Asignarle la clase 'completeCheckbox' al checkbox
+        e) Dentro del bloque 'if' de la función buildToDo, si es true, setear el atributo 'checked' en true en el checkbox
+        f) Agregar el checkbox sobre el elemento 'toDoShell'
+*/
+let toDoCheck=document.createElement("input")
+toDoCheck.setAttribute("type","checkbox")
+toDoCheck.id=index
+toDoCheck.className="completeCheckbox"
+toDoCheck.addEventListener('click',completeToDo)
+if(todo.complete){
+  toDoCheck.checked=true
+  toDoText.className='completeText'; //si complete esta true asignamos classname completeText
+}
 //console.log(toDoShell)
 //console.log(toDoText)
 //   3) En la función 'buildToDo' agregar un 'click' event listener al elemento 'toDoText', pasándole
 //      esta función como callback
-toDoText.addEventListener('click',completeToDo)
+//toDoText.addEventListener('click',completeToDo)
 toDoShell.appendChild(toDoText) //asignamos todotext como hijo de todoshell
+toDoShell.appendChild(toDoCheck)
 return toDoShell;
 //toDoText.parentElement=toDoShell;
 }
@@ -93,12 +110,15 @@ function buildToDos(toDos) {
 
 function displayToDos() {
   // Tu código acá:
-let toDoContainer=document.querySelector("#toDoContainer")
+const toDoContainer=document.querySelector("#toDoContainer")
 toDoContainer.innerHTML=""
-let arr =buildToDos(toDoItems)
-for (let i = 0; i < arr.length; i++) {
- toDoContainer.appendChild(arr[i]);
+const arr = buildToDos(toDoItems)
+for(let elemento in arr){
+  toDoContainer.appendChild(arr[elemento]);
 }
+// for (let i = 0; i < arr.length; i++) {
+//  toDoContainer.appendChild(arr[i]);
+// }
 
 }
 

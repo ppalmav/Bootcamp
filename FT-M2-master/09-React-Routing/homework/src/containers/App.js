@@ -6,8 +6,11 @@ import Cards from '../components/Cards.jsx';
 import { Route } from 'react-router-dom';
 import About from '../components/About.jsx';
 import Ciudad from '../components/Ciudad';
+let keyConstruct = '017e2ef2'
+keyConstruct+='ba480dcd'
+keyConstruct+='d5b77b4466095c64'
 
-const apiKey = ''; //017e2ef2ba480dcdd5b77b4466095c64 propia
+const apiKey = keyConstruct; //017e2ef2ba480dcdd5b77b4466095c64 propia
 
 
 function App() {

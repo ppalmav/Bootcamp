@@ -4,11 +4,21 @@ nav{
     // display:flex;
     // flex-direction: column;
     // align-items: center;
+    padding-bottom: 1rem;
     .flex-vert();
     background-color: @nav-bg;
     border-bottom: 2px solid @nav-border;
+    position: fixed;
+    top:0;
+    width: 100%;
+    opacity: 0.8;
+    &:hover{
+        opacity: 1.0;
+    }
+
+    //padding-bottom: 0.5rem;
     h2 {
-        margin: 3rem;
+        margin: 2rem;
     }
     ul{
         // display: flex;
@@ -23,6 +33,10 @@ nav{
         li{
             cursor:pointer;
             position: relative;
+            a, a:hover{
+                font-size: 1.5rem;
+                font-weight: 600;
+            }
             &::after{
                 transition: .5s;
                 content: '';

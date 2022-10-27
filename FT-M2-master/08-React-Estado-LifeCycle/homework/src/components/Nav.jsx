@@ -5,8 +5,12 @@ import './Nav.css';
 
 function Nav({onSearch}) {
   return (
-    <div>Nav</div>
-  );
+    <div>
+      <img src={Logo} alt="Logo Henry" />
+      <span>Henry - Weather App</span>
+      <SearchBar/>
+    </div>
+    );
 };
 
 export default Nav;

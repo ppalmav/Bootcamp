@@ -28,11 +28,19 @@ const traverseDomAndCollectElements = function(matchFunc, startEl=document.body)
 
 const selectorTypeMatcher = function(selector) {
   // tu código aquí
-  let arr=selector.trim().split('');
+  // let arr=selector.trim().split('');
+  // //console.log(arr)
+  // if(arr[0]==='#') return 'id'
+  // if(arr[0]==='.') return 'class'
+  // if(arr.includes('.')) return 'tag.class'
+  // if(arr.includes('>')) return 'child'
+  // if(arr.includes(' ')) return 'tags'
   //console.log(arr)
-  if(arr[0]==='#') return 'id'
-  if(arr[0]==='.') return 'class'
-  if(arr.includes('.')) return 'tag.class'
+  if(selector.substring(0,1)==='#') return 'id'
+  if(selector.substring(0,1)==='.') return 'class'
+  if(selector.includes('.')) return 'tag.class'
+  if(selector.includes(' > ')) return 'child'
+  if(selector.includes(' ')) return 'tags'
   else return 'tag'
 
 };
@@ -60,6 +68,7 @@ const matchFunctionMaker = function(selector) {
       }
       else return selector.substring(1) ===startEl.className; //si solo es un nombre de clase
      };
+
   } else if (selectorType === "tag.class") {
     matchFunction = (startEl)=>{
 
@@ -68,7 +77,6 @@ const matchFunctionMaker = function(selector) {
 
       if(startEl.className.includes(' ')){ //si hay varios nombres de clase separados por espacio ' '
         let arr=startEl.className.split(" "); //separarlos y enviarlos a un arreglo
-
         for(let el of arr){ //recorrer cada clase
           if(el===arrS[1]) matchClass=true //si lo encuentra
         }
@@ -77,10 +85,30 @@ const matchFunctionMaker = function(selector) {
       else matchClass = selector.substring(1) ===startEl.className?true:false; //si solo hay un nombre de clase
 
       matchTag= startEl.tagName.toUpperCase() === arrS[0].toUpperCase();
-      
-      return matchClass===true && matchTag===true
+  
+      return matchClass && matchTag
      };
 
+  } else if (selectorType === "child") {
+    matchFunction = (startEl)=>{
+      const [...selectores] = selector.split(' > ').reverse()
+      let [nodo,cont] = [startEl,0]
+      if(selectores[0].toUpperCase()===startEl.tagName.toUpperCase())
+        for (i = 1,cont=1; i < selectores.length; i++) {
+          nodo=nodo.parentNode
+          if(selectores[i].toUpperCase() === nodo.tagName.toUpperCase()) cont++
+        }
+      return cont===selectores.length
+     };
+  } else if (selectorType === "tags") {
+    matchFunction = (startEl)=>{
+      let [parent,child] = selector.split(' ')
+      let [matchP,matchC] = [false,false]
+      // matchP=(parent.toUpperCase() === startEl.parentNode.tagName.toUpperCase())
+      matchC=(child.toUpperCase()===startEl.tagName.toUpperCase())
+      matchP=(startEl.closest(parent.toLowerCase()))
+      return matchP && matchC
+    };
   } else if (selectorType === "tag") {
     matchFunction = (startEl)=>{
       return selector.toUpperCase() === startEl.tagName.toUpperCase();
