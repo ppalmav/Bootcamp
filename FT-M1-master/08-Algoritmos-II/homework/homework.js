@@ -55,8 +55,14 @@ function merge(l,r){
 }
 // console.log(mergeSort([2,6,3,6,8,99,2,11,5,2]))
 // console.log(mergeSort([234,65,3,7,3,67,3,76,87,2342,556,234,6,8,453,23]))
-
-
+// console.log(2&&5)
+// console.log(5&&2)
+// console.log(0&&5)
+// console.log(2&&0)
+// console.log(2||5)
+// console.log(5||2)
+// console.log(0||5)
+// console.log(2||0)
 // No modificar nada debajo de esta línea
 // --------------------------------
 

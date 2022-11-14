@@ -6,9 +6,9 @@ import { removeMovieFavorite } from "../../actions";
 import './Favorites.css';
 
 export class ConnectedList extends Component {
-  constructor(props){
-    super(props)
-  }
+  // constructor(props){
+  //   super(props)
+  // }
   handleClick(id){
     this.props.removeMovieFavorite(id)
   }

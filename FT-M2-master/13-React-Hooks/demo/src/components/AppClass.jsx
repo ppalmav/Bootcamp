@@ -26,13 +26,13 @@ class AppClass extends React.Component {
     window.removeEventListener('resize', this.handleResize)
   }
 
-  handleResize() {
+  handleResize = () => {
     this.setState({
       width: window.innerWidth
     })
   }
 
-  handleNameChange(e) {
+  handleNameChange = (e) => {
     this.setState({
       name: e.target.value
     })

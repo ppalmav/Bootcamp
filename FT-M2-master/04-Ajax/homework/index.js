@@ -1,24 +1,34 @@
 ////CARGAR AMIGOS
 //import './server'
 function onClickAmigos(){
-     
     $('#success').html('')
-    $('#lista').empty()
-    $(`<img src='https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif' />`).appendTo('#lista')
+    const lista = $('#lista')
+    lista.empty()
+    // $(`<img src='https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif' />`).appendTo(lista.id)
+    // lista.innerHTML()
     $.get(`http://localhost:5000/amigos`, function(data){
     //console.log(data)
-    $('#lista').empty()
-    data.forEach(obj => $(`<li><button id='Delete${obj.id}' onClick='eliminarAmigoById(${obj.id})'>Delete</button>${obj.name}</li>`).appendTo('#lista'))
-    })
-    
-}
+        // lista.empty()
+        //data.forEach(obj => $(`<li><button id='Delete${obj.id}' onClick='eliminarAmigoById(${obj.id})'>Delete</button>${obj.name}</li>`).appendTo('#lista'))
+        data.forEach(({id,name,age,email})=>{
+            const newLi = document.createElement("li")
+            // const newBtn = document.createElement("button")
+            // newBtn.id=id
+            newLi.innerHTML = `${name} - Edad:${age} - E-mail:${email}`
+            lista.append(newLi)
+            })
+        })
+    }
 
 function eliminarAmigoById(id){
     //let input = $('#inputDelete');
+    $('#succes').empty()
+    $(`<img src='https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif' />`).appendTo('#success')
     $.ajax({
         url:`http://localhost:5000/amigos/${id}`,
         type:'DELETE',
         success: (result) => {
+            
             $('#success').html('Amigo borrado exitosamente!')
             onClickAmigos();   
         }
@@ -39,13 +49,13 @@ $('#search').click(() => {
     else{
         
 
-        if(!$.get(`http://localhost:5000/amigos/${id}`, function(data){
-            console.log(data.name)
+        $.get(`http://localhost:5000/amigos/${id}`, function(data){
+            // console.log(data.name)
             //$(data.name).appendTo('#amigo')
             //$(`${data.name}`).appendTo('#amigo')
             $('#amigo').html(data.name)
-            }))
-                $('#amigo').html('Amigo no encontrado!')
+            })
+                // $('#amigo').html('Amigo no encontrado!')
         }
     input[0].value = '';
 })
