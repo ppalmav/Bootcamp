@@ -16,13 +16,14 @@ function $Promise(executor){
     this._state = STATE_PENDING
     this._value = undefined
     this._handlerGroups = []
+    
 
     this._internalResolve = (data) => {
     
         if(this._state === STATE_PENDING){
             this._state = STATE_FULLFILLED;
             this._value = data;
-            this._callHandlers(this._value)
+            this._callHandlers()
         }
         
     }
@@ -32,16 +33,43 @@ function $Promise(executor){
         if(this._state===STATE_PENDING){
             this._state = STATE_REJECTED;
             this._value=reason;
-            this._callErrorHandlers(this._value)
+            this._callHandlers()
+            //this._callErrorHandlers(this._value)
         }
     }
-    this._callHandlers = (value) => {
-        while(this._handlerGroups.length>0 && typeof this._handlerGroups[0].successCb === TYPE_FUNCTION) 
-            this._handlerGroups.shift().successCb(value);
-    }
-    this._callErrorHandlers = (value) => {
-        while(this._handlerGroups.length>0 && typeof this._handlerGroups[0].errorCb === TYPE_FUNCTION)
-            this._handlerGroups.shift().errorCb(value);
+    this._callHandlers = () => {
+        
+         let HANDLER, INTERNAL_R
+        while(this._handlerGroups.length>0){
+            let hndGrp = this._handlerGroups.shift();
+            switch (this._state){ //callhandler es llamado con fulfilled o rejected
+                case STATE_FULLFILLED:
+                    HANDLER = 'successCb'
+                    INTERNAL_R = '_internalResolve'
+                    break;
+                default:  //STATE_REJECTED
+                    HANDLER = 'errorCb'
+                    INTERNAL_R = '_internalReject'
+            }
+            if(!hndGrp[HANDLER]){ // o typeof hnd... !== TYPE_FUNCTION
+                hndGrp.downstreamPromise[INTERNAL_R](this._value)
+            } else {
+                try {
+                    let returnH = hndGrp[HANDLER](this._value)
+                    if(returnH instanceof $Promise){
+                        returnH.then(
+                            (value) => hndGrp.downstreamPromise._internalResolve(value)
+                            ,
+                            (err) => hndGrp.downstreamPromise._internalReject(err)
+                          );
+                    }  
+                    else if(typeof returnH !== TYPE_FUNCTION)
+                        hndGrp.downstreamPromise._internalResolve(returnH)
+                } catch (error) {
+                    hndGrp.downstreamPromise._internalReject(error)
+                }
+            }           
+        }     
     }
 
     executor(this._internalResolve,this._internalReject)
@@ -49,21 +77,16 @@ function $Promise(executor){
     this.then = (succesH,errorH) => {
         if(typeof succesH !== TYPE_FUNCTION) succesH=false
         if( typeof errorH !== TYPE_FUNCTION) errorH=false
+
+        let downstreamPromise = new $Promise(() =>{})
+        this._handlerGroups.push({successCb:succesH,errorCb:errorH,downstreamPromise})
         
-        this._handlerGroups.push({successCb:succesH,errorCb:errorH})
-        switch (this._state){
-            case STATE_FULLFILLED:
-                this._callHandlers(this._value)
-                break;
-            case STATE_REJECTED:
-                this._callErrorHandlers(this._value)
-                break;
-            default:
-        }           
+        if (this._state !== STATE_PENDING) this._callHandlers()
+        return downstreamPromise         
     }
 
     this.catch = (err) => {
-        this.then(null,err)
+        return this.then(null,err)
     }
 }
 
